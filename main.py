@@ -34,6 +34,8 @@ def main():
         else:
             sockets.connect()
             sockets.send("s")
+            connectedmsg = sockets.recieve()
+            board.checkAttack(connectedmsg)
 
 
     #is not host
