@@ -29,7 +29,7 @@ def main():
             attackarray = attack.split(" ")
             sockets.connect()
             print(tuple((int(attackarray[0]),int(attackarray[1]))))
-            sockets.send(tuple((int(attackarray[0]),int(attackarray[1])))
+            sockets.send(tuple((int(attackarray[0]),int(attackarray[1]))))
 
         #Going Second
         else:
