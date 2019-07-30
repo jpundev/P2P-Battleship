@@ -1,17 +1,19 @@
-import socket, pickle
+import class_COM
+import numpy as np
 
-def transmit(address, port, msg):
-    tx = socket.socket()
-    tx.connect((str(address), port))
-    msg_b = pickle.loads(msg)
-    tx.send(msg_b)
-    tx.close()
+class BattleShip:
+    def __init__(self, initINFO):
+        self.carrier = {'pos':initINFO['carrier'][0], 'ori':initINFO['carrier'][1], 'health':5, 'sunk':False}
+        self.battleship = {'pos':initINFO['battleship'][0], 'ori':initINFO['battleship'][1], 'health':4, 'sunk':False}
+        self.cruiser = {'pos':initINFO['cruiser'][0], 'ori':initINFO['cruiser'][1], 'health':3, 'sunk':False}
+        self.submarine = {'pos':initINFO['submarine'][0], 'ori':initINFO['submarine'][1], 'health':3, 'sunk':False}
+        self.destroyer = {'pos':initINFO['destroyer'][0], 'ori':initINFO['destroyer'][1], 'health':2, 'sunk':False}
 
-def recieve(address, port):
-    rx= socket.socket()
-    rx.bind((str(address), port))
-    rx.listen(5)
-    c, addr = rx.accept()
-    msg_b = c.recv(1024)
-    msg = pickle.dumps(msg_b)
-    print(msg)
+        self.OPPboard =
+
+    def checkPlacement(self):
+        pass
+
+    def
+
+
