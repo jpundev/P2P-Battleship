@@ -27,9 +27,12 @@ class BattleShip:
 
         #create empty board
         self.createBoard()
+        #check if ship placement is valid
+        self.checkPlacement()
+        #create hit position
         self.createHitMap()
 
-    #
+    #create hit position
     def createHitMap(self):
         for i in self.ships:
             i['hitmap'].append(i['pos'])
