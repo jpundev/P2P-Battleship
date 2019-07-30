@@ -51,6 +51,9 @@ def main():
 
         #Going First
         elif (connectedmsg == "s"):
+            attack = input("You go first! Make an attack x y 0-7 \n")
+            attackarray = attack.split(" ")
+            sockets.connect()
             print(tuple(int(attackarray[0]),int(attackarray[1])))
             sockets.send(tuple(int(attackarray[0]),int(attackarray[1])))
 
