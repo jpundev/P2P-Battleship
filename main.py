@@ -11,6 +11,12 @@ def main():
     host = input("Are you the Host? (y/n) \n")
     sockets = COM(OPPip,txport,rxport)
 
+
+    
+    board = initBoard()
+    
+    
+
     #Is Host
     if(host == "y"):
         print("Waiting for Player 2 to Connect..\n")
@@ -39,10 +45,26 @@ def main():
         #Going First
         elif (connectedmsg == "s"):
 
+def initBoard():
 
+    dictionary = {"battleship":None,"carrier":None,"submarine":None,"cruiser":None,"destroyer":None}
+    print("Orientation is [ 0 : right, 1: down, 2: left, 3: right\n Coordinates must be entered from 0-7 like this (1,2)\n")
+    dictionary["carrier"] = parser(input("Enter a coordinate and orientation for the carrier (5) eg. 1 2 3 \n"))
+    dictionary["battleship"] = parser(input("Enter a coordinate and orientation for the battleship (4) eg. 1 2 3 \n"))
+    dictionary["submarine"] = parser(input("Enter a coordinate and orientation for the submarine (3) eg. 1 2 3 \n"))
+    dictionary["cruiser"] = parser(input("Enter a coordinate and orientation for the cruiser (3) eg. 1 2 3 \n"))
+    dictionary["destroyer"] = parser(input("Enter a coordinate and orientation for the destroyer (2) eg. 1 2 3 \n"))
+    
+
+
+    
 
     
         
+def parser(string):
+    stringarray = string.split(" ")
+    coordarray = [int(stringarray[0]),int(stringarray[1])]
+    return [tuple(coordarray),int(stringarray[1])]
 
     
     
@@ -51,7 +73,7 @@ def main():
 
 
 
-    return
+    
 
 
 
