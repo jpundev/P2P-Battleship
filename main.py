@@ -13,8 +13,9 @@ def main():
 
 
     
-    board = initBoard()
-    
+    boarddict = initBoard()
+    board = BattleShip(boarddict)
+
     
 
     #Is Host
@@ -24,8 +25,11 @@ def main():
         print("Player 2 is.." + connectedmsg)
         #Going First
         if(random.randint(1,2)==1):
+            attack = input("You go first! Make an attack x y 0-7 \n")
+            attackarray = attack.split(" ")
             sockets.connect()
-            sockets.send("f")
+            sockets.send(tuple(int(attackarray[0]),int(attackarray[1])))
+
         #Going Second
         else:
             sockets.connect()
@@ -39,11 +43,13 @@ def main():
         sockets.send("Connected")
         connectedmsg = sockets.recieve()
         #Going Second
-        if(connectedmsg == "f"):
-            
+        if(connectedmsg != "s"):
+            board.checkAttack(connectedmsg)
 
         #Going First
         elif (connectedmsg == "s"):
+            sockets.send(tuple(int(attackarray[0]),int(attackarray[1])))
+
 
 def initBoard():
 
@@ -55,6 +61,7 @@ def initBoard():
     dictionary["cruiser"] = parser(input("Enter a coordinate and orientation for the cruiser (3) eg. 1 2 3 \n"))
     dictionary["destroyer"] = parser(input("Enter a coordinate and orientation for the destroyer (2) eg. 1 2 3 \n"))
     
+    return dictionary
 
 
     
