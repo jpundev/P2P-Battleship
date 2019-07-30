@@ -72,8 +72,10 @@ def initBoard():
         
 def parser(string):
     stringarray = string.split(" ")
+    print(stringarray)
     coordarray = [int(stringarray[0]),int(stringarray[1])]
-    return [tuple(coordarray),int(stringarray[1])]
+    print([tuple(coordarray),int(stringarray[2])])
+    return [tuple(coordarray),int(stringarray[2])]
 
     
     
