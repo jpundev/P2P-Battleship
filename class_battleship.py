@@ -16,18 +16,19 @@ class BattleShip:
          ori is a int like 0, 1, 2, 3
         '''
 
+        #import the position of each ship from initINFO (type dict)
         self.ships = {}
-        self.carrier = {'pos':initINFO['carrier'][0], 'ori':initINFO['carrier'][1], 'health':5, 'sunk':False}
-        self.battleship = {'pos':initINFO['battleship'][0], 'ori':initINFO['battleship'][1], 'health':4, 'sunk':False}
-        self.cruiser = {'pos':initINFO['cruiser'][0], 'ori':initINFO['cruiser'][1], 'health':3, 'sunk':False}
-        self.submarine = {'pos':initINFO['submarine'][0], 'ori':initINFO['submarine'][1], 'health':3, 'sunk':False}
-        self.destroyer = {'pos':initINFO['destroyer'][0], 'ori':initINFO['destroyer'][1], 'health':2, 'sunk':False}
-        self.ships.add(self.carrier)
-        self.OPPboard = None
+        self.ships['carrier'] = {'pos':initINFO['carrier'][0], 'ori':initINFO['carrier'][1], 'health':5, 'sunk':False}
+        self.ships['battleship'] = {'pos':initINFO['battleship'][0], 'ori':initINFO['battleship'][1], 'health':4, 'sunk':False}
+        self.ships['cruiser'] = {'pos':initINFO['cruiser'][0], 'ori':initINFO['cruiser'][1], 'health':3, 'sunk':False}
+        self.ships['submarine'] = {'pos':initINFO['submarine'][0], 'ori':initINFO['submarine'][1], 'health':3, 'sunk':False}
+        self.ships['destroyer'] = {'pos':initINFO['destroyer'][0], 'ori':initINFO['destroyer'][1], 'health':2, 'sunk':False}
+
+        #create empty board
         self.createBoard()
 
     def createHitMap(self):
-
+        pass
 
     def checkPlacement(self):
         pass
