@@ -57,7 +57,8 @@ class BattleShip:
                 exit(1)
 
     def checkPlacement(self):
-        pass
+        for i in self.ships:
+            stern = list(i['pos'])
 
     #create a 2D numpy array, fill with '?'
     def createBoard(self):
@@ -84,4 +85,12 @@ class BattleShip:
                     return 2 #hit and sunk ship
                 return 1 #hit ship
         return 0 #no hit
+
+    def defeated(self):
+        defeated = True
+        for i in self.ships:
+            if i['sunk'] == False:
+                defeated = False
+                return defeated
+        return defeated
 
