@@ -1,4 +1,3 @@
-import class_COM
 import numpy as np
 
 class BattleShip:
@@ -36,30 +35,53 @@ class BattleShip:
     def createHitMap(self):
         for i in self.ships:
             i['hitmap'].append(i['pos'])
-            pos_temp = [i['pos'][0], i['pos'][1]]
+            pos_temp = list(i['pos'])
             if i['ori'] == 0:
                 for j in range(i['health']):
                     pos_temp[0] += 1
-                    i['hitmap'].append(i['pos'])
+                    i['hitmap'].append(tuple(pos_temp))
             elif i['ori'] == 1:
-                pass
+                for j in range(i['health']):
+                    pos_temp[1] -= 1
+                    i['hitmap'].append(tuple(pos_temp))
             elif i['ori'] == 2:
-                pass
+                for j in range(i['health']):
+                    pos_temp[0] -= 1
+                    i['hitmap'].append(tuple(pos_temp))
             elif i['ori'] == 3:
-                pass
+                for j in range(i['health']):
+                    pos_temp[1] += 1
+                    i['hitmap'].append(tuple(pos_temp))
+            else:
+                print("invalid orientation input")
+                exit(1)
 
     def checkPlacement(self):
         pass
 
+    #create a 2D numpy array, fill with '?'
     def createBoard(self):
         temp = []
         for i in range(64):
             temp.append('?')
         self.OPPboard = np.reshape(np.array(temp), (-1, 8))
 
-    def attack(self, pos):
-        pass
+    #update the board according to status and pos
+    #pos is a tuple (x, y) and status may equal to 0(miss), 1(hit)
+    def updateBoard(self, pos, status):
+        if status == 0:
+            self.OPPboard[pos[0]][pos[1]] = 'O'
+        else:
+            self.OPPboard[pos[0]][pos[1]] = 'X'
 
+    #return 0 if no hit, return 1 for hit, return 2 for hit and sunk
     def checkAttack(self, pos):
-        pass
+        for i in self.ships:
+            if pos in i['hitmap']:
+                i['hitmap'].remove(pos)
+                i['health'] -= 1
+                if i['health'] == 0:
+                    return 2 #hit and sunk ship
+                return 1 #hit ship
+        return 0 #no hit
 
