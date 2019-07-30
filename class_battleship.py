@@ -9,11 +9,17 @@ class BattleShip:
         self.submarine = {'pos':initINFO['submarine'][0], 'ori':initINFO['submarine'][1], 'health':3, 'sunk':False}
         self.destroyer = {'pos':initINFO['destroyer'][0], 'ori':initINFO['destroyer'][1], 'health':2, 'sunk':False}
 
-        self.OPPboard =
+        self.OPPboard = None
+        self.createBoard()
+        print(self.OPPboard)
 
     def checkPlacement(self):
         pass
 
-    def
+    def createBoard(self):
+        temp = []
+        for i in range(64):
+            temp.append('?')
+        self.OPPboard = np.reshape(np.array(temp), (-1, 8))
 
 
