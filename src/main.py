@@ -1,6 +1,8 @@
 from class_battleship import BattleShip
 from class_COM import COM
 import random
+from os import system as sys
+import numpy as np
 
 
 def main():
@@ -121,10 +123,26 @@ def recieveAttack(board, sockets):
 def initBoard():
     # Initialize the dictionary with empty positions
     dictionary = {"battleship": None, "carrier": None, "submarine": None, "cruiser": None, "destroyer": None}
-    print(
-        "Orientation is [ 0 : right, 1: down, 2: left, 3: right\n Coordinates must be entered beginning with a letter and then a number \n")
-    # Get every battle ship orientation and position and put them into the dictionary
+
+    sys("clear")
+
+    temp = []
+    for i in range(64):
+        temp.append('?')
+    guessBoard = np.reshape(np.array(temp), (-1, 8))
+    print("   0 1 2 3 4 5 6 7 ")
+    rowIndex = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    for i in range(8):
+        line = rowIndex[i] + " |"
+        for j in range(8):
+            line += guessBoard[i][j]
+            line += "|"
+        print(line)
+
+    print("Orientation is [ 0 : right, 1: down, 2: left, 3: right\n Coordinates must be entered beginning"
+          " with a letter and then a number \n")
     
+    # Get every battle ship orientation and position and put them into the dictionary
     dictionary["carrier"] = parser(input("Enter a coordinate and orientation for the carrier (5) eg. A1 3 \n"))
     dictionary["battleship"] = parser(input("Enter a coordinate and orientation for the battleship (4) eg. A1 3 \n"))
     dictionary["submarine"] = parser(input("Enter a coordinate and orientation for the submarine (3) eg. A1 3 \n"))
