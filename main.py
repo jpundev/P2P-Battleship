@@ -81,7 +81,7 @@ def attacksocket(board,sockets):
     sockets.send(tuple((int(attackarray[0]),int(attackarray[1]))))
     board.turn = False
     print(sockets.recieve())
-    board.printBoard()
+    board.updateBoard()
 
 
 #Check if the attack hit and update the board
