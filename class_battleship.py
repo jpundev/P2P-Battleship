@@ -16,6 +16,11 @@ class BattleShip:
          ori is a int like 0, 1, 2, 3
         '''
 
+        #variable contains all possible hit location, used for checking placement overlap
+        self.globleHitMap = []
+
+        self.turn = None
+
         # import the position of each ship from initINFO (type dict)
         # self.ships, index0=carrier, index1=battleship, index2=cruiser, index3=submarine, index4=destoryer
         self.ships = []
@@ -33,8 +38,6 @@ class BattleShip:
 
         # create empty board
         self.createBoard()
-        # check if ship placement is valid
-        self.checkPlacement()
         # create hit position
         self.createHitMap()
 
@@ -47,6 +50,7 @@ class BattleShip:
                 for j in range(i['health']):
                     pos_temp[0] += 1
                     i['hitmap'].append(tuple(pos_temp))
+                    if not self.placementOverlap(tuple(pos_temp)) and
             elif i['ori'] == 1:
                 for j in range(i['health']):
                     pos_temp[1] -= 1
@@ -63,9 +67,17 @@ class BattleShip:
                 print("invalid orientation input")
                 exit(1)
 
-    def checkPlacement(self):
-        for i in self.ships:
-            stern = list(i['pos'])
+    #return true if ship is placed outside of the board
+    def Index(self,pos):
+        if pos[0] >= 0 and pos[0] <= 7 and pos[1] >= 0 and pos[1] <= 7:
+            return True
+        return False
+
+    #return true if 2 ships overlaps
+    def placementOverlap(self, pos):
+        if pos in self.globleHitMap:
+            return True
+        return False
 
     # create a 2D numpy array, fill with '?'
     def createBoard(self):
