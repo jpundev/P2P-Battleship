@@ -17,9 +17,13 @@ class BattleShip:
         '''
 
         #variable contains all possible hit location, used for checking placement overlap
-        self.globleHitMap = []
+        self.globalHitMap = []
 
+        #indicate if it's your turn or not
         self.turn = None
+
+        #Opponent's board
+        self.OPPboard = None
 
         # import the position of each ship from initINFO (type dict)
         # self.ships, index0=carrier, index1=battleship, index2=cruiser, index3=submarine, index4=destoryer
@@ -50,39 +54,39 @@ class BattleShip:
                 for j in range(i['health']):
                     pos_temp[0] += 1
                     i['hitmap'].append(tuple(pos_temp))
-                    if not self.placementOverlap(tuple(pos_temp)) and self.goodPosIndex(tuple(pos_temp)):
-                        self.globleHitMap.append(pos_temp)
+                    if not self.placementOverlap(tuple(pos_temp)) and self.indexInRange(tuple(pos_temp)):
+                        self.globalHitMap.append(pos_temp)
             elif i['ori'] == 1:
                 for j in range(i['health']):
                     pos_temp[1] -= 1
                     i['hitmap'].append(tuple(pos_temp))
-                    if not self.placementOverlap(tuple(pos_temp)) and self.goodPosIndex(tuple(pos_temp)):
-                        self.globleHitMap.append(pos_temp)
+                    if not self.placementOverlap(tuple(pos_temp)) and self.indexInRange(tuple(pos_temp)):
+                        self.globalHitMap.append(pos_temp)
             elif i['ori'] == 2:
                 for j in range(i['health']):
                     pos_temp[0] -= 1
                     i['hitmap'].append(tuple(pos_temp))
-                    if not self.placementOverlap(tuple(pos_temp)) and self.goodPosIndex(tuple(pos_temp)):
-                        self.globleHitMap.append(pos_temp)
+                    if not self.placementOverlap(tuple(pos_temp)) and self.indexInRange(tuple(pos_temp)):
+                        self.globalHitMap.append(pos_temp)
             elif i['ori'] == 3:
                 for j in range(i['health']):
                     pos_temp[1] += 1
                     i['hitmap'].append(tuple(pos_temp))
-                    if not self.placementOverlap(tuple(pos_temp)) and self.goodPosIndex(tuple(pos_temp)):
-                        self.globleHitMap.append(pos_temp)
+                    if not self.placementOverlap(tuple(pos_temp)) and self.indexInRange(tuple(pos_temp)):
+                        self.globalHitMap.append(pos_temp)
             else:
                 print("invalid orientation input")
                 exit(1)
 
     #return true if ship is placed outside of the board
-    def goodPosIndex(self,pos):
+    def indexInRange(self, pos):
         if pos[0] >= 0 and pos[0] <= 7 and pos[1] >= 0 and pos[1] <= 7:
             return True
         return False
 
     #return true if 2 ships overlaps
     def placementOverlap(self, pos):
-        if pos in self.globleHitMap:
+        if pos in self.globalHitMap:
             return True
         return False
 
@@ -116,7 +120,7 @@ class BattleShip:
     def defeated(self):
         defeated = True
         for i in self.ships:
-            if i['sunk'] == False:
+            if i['sunk'] is False:
                 defeated = False
                 return defeated
         return defeated
@@ -129,7 +133,3 @@ class BattleShip:
                 line += self.OPPboard[i][j]
                 line += "|"
             print(line)
-
-    def debug(self):
-        print(self.ships)
-        print(self.OPPboard)
