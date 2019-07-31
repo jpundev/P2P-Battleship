@@ -120,7 +120,6 @@ class BattleShip:
             self.OPPboard[pos[0]][pos[1]] = 'O'
         else:
             self.OPPboard[pos[0]][pos[1]] = 'X'
-        print("kerry sucks")
         self.printBoard()
 
     # return 0 if no hit, return 1 for hit, return 2 for hit and sunk
