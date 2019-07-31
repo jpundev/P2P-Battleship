@@ -20,16 +20,17 @@ class COM:
         self.tx.send(msg_b)
 
     def recieve(self):
-        self.rx.listen()
-        print("Listen accepted")
-
-        c, addr = self.rx.accept()
-        print(" socket accepted")
-        msg_b = c.recv(1024)
+        
+        msg_b = self.c.recv(1024)
 
         msg = pickle.loads(msg_b)
         return msg
+    def listen(self):
+        self.rx.listen()
+        print("Listen accepted")
 
+        self.c, self.addr = self.rx.accept()
+        print(" socket accepted")
     def connect(self):
         self.tx.connect((str(self.OPPip), int(self.txport)))
 
