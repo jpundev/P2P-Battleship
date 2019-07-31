@@ -152,12 +152,3 @@ class BattleShip:
                 line += self.OPPboard[i][j]
                 line += "|"
             print(line)
-
-
-test = {'carrier':[(1, 1),1],
-         'battleship':[(2, 2),1],
-         'cruiser':[(3, 3),1],
-         'submarine':[(4, 4),1],
-         'destroyer':[(5, 5),1]}
-
-battle = BattleShip(test)
