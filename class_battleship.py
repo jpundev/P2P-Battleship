@@ -51,7 +51,7 @@ class BattleShip:
             i['hitmap'].append(i['pos'])
             pos_temp = list(i['pos'])
             if i['ori'] == 0:
-                for j in range(i['health']):
+                for j in range(i['health']-1):
                     pos_temp[1] += 1
                     i['hitmap'].append(tuple(pos_temp))
                     if not self.placementOverlap(tuple(pos_temp)) and self.indexInRange(tuple(pos_temp)):
@@ -61,7 +61,7 @@ class BattleShip:
                         exit(1)
 
             elif i['ori'] == 1:
-                for j in range(i['health']):
+                for j in range(i['health']-1):
                     pos_temp[0] += 1
                     i['hitmap'].append(tuple(pos_temp))
                     if not self.placementOverlap(tuple(pos_temp)) and self.indexInRange(tuple(pos_temp)):
@@ -71,7 +71,7 @@ class BattleShip:
                         exit(1)
 
             elif i['ori'] == 2:
-                for j in range(i['health']):
+                for j in range(i['health']-1):
                     pos_temp[1] -= 1
                     i['hitmap'].append(tuple(pos_temp))
                     if not self.placementOverlap(tuple(pos_temp)) and self.indexInRange(tuple(pos_temp)):
@@ -81,7 +81,7 @@ class BattleShip:
                         exit(1)
 
             elif i['ori'] == 3:
-                for j in range(i['health']):
+                for j in range(i['health']-1):
                     pos_temp[0] -= 1
                     i['hitmap'].append(tuple(pos_temp))
                     if not self.placementOverlap(tuple(pos_temp)) and self.indexInRange(tuple(pos_temp)):

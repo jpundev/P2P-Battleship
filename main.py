@@ -80,11 +80,14 @@ def attacksocket(board,sockets):
     sockets.send(tuple((int(attackarray[0]),int(attackarray[1]))))
     board.turn = False
     recievemsg = sockets.recieve()
-    if recievemsg == "Hit!\n":
+    if recievemsg == "Hit!":
+        print("you hit something!")
         board.updateBoard(tuple((int(attackarray[0]),int(attackarray[1]))),1)
-    if recievemsg == "Hit and Sunk!\n":
+    if recievemsg == "Hit and Sunk!":
+        print("yes, you hit something and sunk it")
         board.updateBoard(tuple((int(attackarray[0]),int(attackarray[1]))),2)
-    if recievemsg == "Miss!\n":
+    if recievemsg == "Miss!":
+        print("oh shit, you missed")
         board.updateBoard(tuple((int(attackarray[0]),int(attackarray[1]))),0)
 
 
