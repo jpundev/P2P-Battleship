@@ -25,6 +25,7 @@ def main():
             #Connect socket and initialize first strike 
             sockets.connect()
             attacksocket(board,sockets)
+            board.turn = False
             game(board,sockets)
 
         #Going Second
@@ -34,6 +35,7 @@ def main():
             sockets.send("s")
             #Check if the attack hit and update the board
             recieveAttack(board,sockets)
+            board.turn = True
             game(board,sockets)
 
 
@@ -49,7 +51,8 @@ def main():
         #Going Second
         if(connectedmsg != "s"):
             #Check if the attack hit and update the board
-            board.checkAttack(connectedmsg)
+            value = board.checkAttack(connectedmsg)
+            sendvalue(value,sockets)
             board.turn = True
             game(board,sockets)
 
@@ -77,13 +80,17 @@ def attacksocket(board,sockets):
     print(tuple((int(attackarray[0]),int(attackarray[1]))))
     sockets.send(tuple((int(attackarray[0]),int(attackarray[1]))))
     board.turn = False
+    print(sockets.recieve())
+    board.printBoard()
+
 
 #Check if the attack hit and update the board
 def recieveAttack(board,sockets):
     connectedmsg = sockets.recieve()
-    board.checkAttack(connectedmsg)
+    value = board.checkAttack(connectedmsg)
+    sendvalue(value,sockets)
     board.turn = True
-    board.printBoard()
+    
 #initialize the board to send to the board class
 def initBoard():
 
@@ -102,8 +109,23 @@ def initBoard():
 
 
     
-
+#Function that prints out status of the missile that you sent
+def hit(value):
+    if value == 0: 
+        return "Miss!\n"
+    if value == 1:
+        return "Hit!\n"
+    if value == 2:
+        return "Hit and Sunk!\n"
     
+def sendvalue(value,sockets):
+    if value == 0: 
+        sockets.send("Miss!")
+    if value == 1:
+        sockets.send("Hit!")
+    if value == 2:
+        sockets.send("Hit and Sunk!")
+
 #helper function to parse the user input for the correct output for our battleship class     
 def parser(string):
     stringarray = string.split(" ")
