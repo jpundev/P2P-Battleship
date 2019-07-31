@@ -79,9 +79,9 @@ def game(board, sockets):
 def attacksocket(board, sockets):
     # get user coord attack in form (x y) and set turn to false to indicate not my turn
     while True:
-        attack = input("Your Turn! Make an attack x y 0-7 \n")
-        attackarray = attack.split(" ")
-        x,y = int(attackarray[0]), int(attackarray[1])
+        attack = input("Your Turn! Make an attack! eg. A1 \n")
+        tp = TranslateCoordinate(list(attack))
+        x,y = tp[0],tp[1]
         if (0 <= x <= 7 or 0 <= y <= 7):
             break
         else:
@@ -89,18 +89,18 @@ def attacksocket(board, sockets):
 
         
     
-    sockets.send(tuple((int(attackarray[0]), int(attackarray[1]))))
+    sockets.send(tp)
     board.turn = False
     recievemsg = sockets.recieve()
     if recievemsg == "Hit!":
-        print("you hit something!")
-        board.updateBoard(tuple((int(attackarray[0]), int(attackarray[1]))), 1)
+       
+        board.updateBoard(tp, 1)
     if recievemsg == "Hit and Sunk!":
-        print("yes, you hit something and sunk it")
-        board.updateBoard(tuple((int(attackarray[0]), int(attackarray[1]))), 2)
+        
+        board.updateBoard(tp, 2)
     if recievemsg == "Miss!":
-        print("oh shit, you missed")
-        board.updateBoard(tuple((int(attackarray[0]), int(attackarray[1]))), 0)
+        
+        board.updateBoard(tp, 0)
 
 
 # Check if the attack hit and update the board
@@ -116,14 +116,14 @@ def initBoard():
     # Initialize the dictionary with empty positions
     dictionary = {"battleship": None, "carrier": None, "submarine": None, "cruiser": None, "destroyer": None}
     print(
-        "Orientation is [ 0 : right, 1: down, 2: left, 3: right\n Coordinates must be entered from 0-7 like this (1,2)\n")
+        "Orientation is [ 0 : right, 1: down, 2: left, 3: right\n Coordinates must be entered beginning with a letter and then a number \n")
     # Get every battle ship orientation and position and put them into the dictionary
     
-    dictionary["carrier"] = parser(input("Enter a coordinate and orientation for the carrier (5) eg. 1 2 3 \n"))
-    dictionary["battleship"] = parser(input("Enter a coordinate and orientation for the battleship (4) eg. 1 2 3 \n"))
-    dictionary["submarine"] = parser(input("Enter a coordinate and orientation for the submarine (3) eg. 1 2 3 \n"))
-    dictionary["cruiser"] = parser(input("Enter a coordinate and orientation for the cruiser (3) eg. 1 2 3 \n"))
-    dictionary["destroyer"] = parser(input("Enter a coordinate and orientation for the destroyer (2) eg. 1 2 3 \n"))
+    dictionary["carrier"] = parser(input("Enter a coordinate and orientation for the carrier (5) eg. A1 3 \n"))
+    dictionary["battleship"] = parser(input("Enter a coordinate and orientation for the battleship (4) eg. A1 3 \n"))
+    dictionary["submarine"] = parser(input("Enter a coordinate and orientation for the submarine (3) eg. A1 3 \n"))
+    dictionary["cruiser"] = parser(input("Enter a coordinate and orientation for the cruiser (3) eg. A1 3 \n"))
+    dictionary["destroyer"] = parser(input("Enter a coordinate and orientation for the destroyer (2) eg. A1 3 \n"))
 
     return dictionary
 
@@ -152,12 +152,10 @@ def parser(string):
     stringarray = string.split(" ")
     print(stringarray)
     tp = TranslateCoordinate(stringarray[0])
-    x,y = int(stringarray[0]), int(stringarray[1])
+    x,y = tp[0],tp[1]
     while True:
-        if (0 <= x <= 7 or 0 <= y <= 7):
-            coordarray = [x, y]
-            print([tuple(coordarray), int(stringarray[2])])
-            return [tuple(coordarray), int(stringarray[2])]
+        if (0 <= x <= 7 or 0 <= y <= 7):       
+            return [tp, int(stringarray[1])]
         else:
             print("Please Enter a Valid Coordinate")
 
@@ -165,7 +163,7 @@ def TranslateCoordinate(string):
     rowIndex = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7}
     rowLetter = string[0]
     rowNum = rowIndex[rowLetter]
-    return tuple(rowNum, int(string[1]))
+    return tuple([rowNum, int(string[1])])
 
 if __name__ == '__main__':
     main()
