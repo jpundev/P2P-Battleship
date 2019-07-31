@@ -4,7 +4,7 @@ from os import system as sys
 
 class BattleShip:
     def __init__(self, initINFO):
-        '''
+        """
         initINFO is a dictionary formatted as:
         {
             'carrier':[pos,ori],
@@ -20,7 +20,7 @@ class BattleShip:
             1 means the stern of the ship is to south of the bow
             2 means the stern of the ship is to west of the bow
             3 means the stern of the ship is to north of the bow
-        '''
+        """
 
         # variable contains all possible hit location, used for checking placement overlap
         self.globalHitMap = []
@@ -32,7 +32,7 @@ class BattleShip:
         self.guessBoard = None
 
         # import the position of each ship from initINFO (type dict)
-        # self.ships, index0=carrier, index1=battleship, index2=cruiser, index3=submarine, index4=destoryer
+        # self.ships, index0=carrier, index1=battleship, index2=cruiser, index3=submarine, index4=destroyer
         self.ships = []
         self.ships.append({'pos': initINFO['carrier'][0],
                            'ori': initINFO['carrier'][1],
@@ -158,11 +158,13 @@ class BattleShip:
     # print out board with format
     def printGuessBoard(self):
         print("   0 1 2 3 4 5 6 7 ")
-        rowIndex = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'E']
+        rowIndex = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
         for i in range(8):
             line = rowIndex[i] + " |"
             for j in range(8):
                 line += self.guessBoard[i][j]
                 line += "|"
             print(line)
+
+
 

@@ -151,6 +151,7 @@ def sendvalue(value, sockets):
 def parser(string):
     stringarray = string.split(" ")
     print(stringarray)
+    tp = TranslateCoordinate(stringarray[0])
     x,y = int(stringarray[0]), int(stringarray[1])
     while True:
         if (0 <= x <= 7 or 0 <= y <= 7):
@@ -160,6 +161,11 @@ def parser(string):
         else:
             print("Please Enter a Valid Coordinate")
 
+def TranslateCoordinate(string):
+    rowIndex = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7}
+    rowLetter = string[0]
+    rowNum = rowIndex[rowLetter]
+    return tuple(rowNum, int(string[1]))
 
 if __name__ == '__main__':
     main()
