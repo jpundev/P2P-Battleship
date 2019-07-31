@@ -1,8 +1,10 @@
-from class_battleship import BattleShip
-from class_COM import COM
 import random
 from os import system as sys
+
 import numpy as np
+
+from class_COM import COM
+from class_battleship import BattleShip
 
 
 def main():
@@ -22,7 +24,7 @@ def main():
         except KeyboardInterrupt:
             print("Interrupted")
             exit(1)
-          
+
     # Identify if the player is host from the userinput
     if (host == "y"):
         print("Waiting for Player 2 to Connect..\n")
@@ -91,25 +93,20 @@ def attacksocket(board, sockets):
     while True:
         attack = input("Your Turn! Make an attack! eg. A1 \n")
         tp = TranslateCoordinate(list(attack))
-        x,y = tp[0],tp[1]
+        x, y = tp[0], tp[1]
         if (0 <= x <= 7 or 0 <= y <= 7):
             break
         else:
             print("Please Enter a Valid Coordinate")
 
-        
-    
     sockets.send(tp)
     board.turn = False
     recievemsg = sockets.recieve()
     if recievemsg == "Hit!":
-       
         board.updateBoard(tp, 1)
     if recievemsg == "Hit and Sunk!":
-        
         board.updateBoard(tp, 2)
     if recievemsg == "Miss!":
-        
         board.updateBoard(tp, 0)
 
 
@@ -143,7 +140,7 @@ def initBoard():
 
     print("Orientation is [ 0 : right, 1: down, 2: left, 3: right\n Coordinates must be entered beginning"
           " with a letter and then a number \n")
-    
+
     # Get every battle ship orientation and position and put them into the dictionary
     dictionary["carrier"] = parser(input("Enter a coordinate and orientation for the carrier (5) eg. A1 3 \n"))
     dictionary["battleship"] = parser(input("Enter a coordinate and orientation for the battleship (4) eg. A1 3 \n"))
@@ -178,18 +175,20 @@ def parser(string):
     stringarray = string.split(" ")
     print(stringarray)
     tp = TranslateCoordinate(stringarray[0])
-    x,y = tp[0],tp[1]
+    x, y = tp[0], tp[1]
     while True:
-        if (0 <= x <= 7 or 0 <= y <= 7):       
+        if (0 <= x <= 7 or 0 <= y <= 7):
             return [tp, int(stringarray[1])]
         else:
             print("Please Enter a Valid Coordinate")
+
 
 def TranslateCoordinate(string):
     rowIndex = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7}
     rowLetter = string[0]
     rowNum = rowIndex[rowLetter]
     return tuple([rowNum, int(string[1])])
+
 
 if __name__ == '__main__':
     main()
