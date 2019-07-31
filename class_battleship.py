@@ -52,28 +52,44 @@ class BattleShip:
             pos_temp = list(i['pos'])
             if i['ori'] == 0:
                 for j in range(i['health']):
+                    pos_temp[1] += 1
+                    i['hitmap'].append(tuple(pos_temp))
+                    if not self.placementOverlap(tuple(pos_temp)) and self.indexInRange(tuple(pos_temp)):
+                        self.globalHitMap.append(tuple(pos_temp))
+                    else:
+                        print("error in ship placement, make sure the ship don't overlap or go outside of the board")
+                        exit(1)
+
+            elif i['ori'] == 1:
+                for j in range(i['health']):
                     pos_temp[0] += 1
                     i['hitmap'].append(tuple(pos_temp))
                     if not self.placementOverlap(tuple(pos_temp)) and self.indexInRange(tuple(pos_temp)):
-                        self.globalHitMap.append(pos_temp)
-            elif i['ori'] == 1:
+                        self.globalHitMap.append(tuple(pos_temp))
+                    else:
+                        print("error in ship placement, make sure the ship don't overlap or go outside of the board")
+                        exit(1)
+
+            elif i['ori'] == 2:
                 for j in range(i['health']):
                     pos_temp[1] -= 1
                     i['hitmap'].append(tuple(pos_temp))
                     if not self.placementOverlap(tuple(pos_temp)) and self.indexInRange(tuple(pos_temp)):
-                        self.globalHitMap.append(pos_temp)
-            elif i['ori'] == 2:
+                        self.globalHitMap.append(tuple(pos_temp))
+                    else:
+                        print("error in ship placement, make sure the ship don't overlap or go outside of the board")
+                        exit(1)
+
+            elif i['ori'] == 3:
                 for j in range(i['health']):
                     pos_temp[0] -= 1
                     i['hitmap'].append(tuple(pos_temp))
                     if not self.placementOverlap(tuple(pos_temp)) and self.indexInRange(tuple(pos_temp)):
-                        self.globalHitMap.append(pos_temp)
-            elif i['ori'] == 3:
-                for j in range(i['health']):
-                    pos_temp[1] += 1
-                    i['hitmap'].append(tuple(pos_temp))
-                    if not self.placementOverlap(tuple(pos_temp)) and self.indexInRange(tuple(pos_temp)):
-                        self.globalHitMap.append(pos_temp)
+                        self.globalHitMap.append(tuple(pos_temp))
+                    else:
+                        print("error in ship placement, make sure the ship don't overlap or go outside of the board")
+                        exit(1)
+
             else:
                 print("invalid orientation input")
                 exit(1)
@@ -112,8 +128,11 @@ class BattleShip:
                 i['hitmap'].remove(pos)
                 i['health'] -= 1
                 if i['health'] == 0:
+                    self.updateBoard(pos, 1)
                     return 2  # hit and sunk ship
+                self.updateBoard(pos, 1)
                 return 1  # hit ship
+        self.updateBoard(pos, 1)
         return 0  # no hit
 
     # if all ship is sunk, return True
@@ -133,3 +152,12 @@ class BattleShip:
                 line += self.OPPboard[i][j]
                 line += "|"
             print(line)
+
+
+test = {'carrier':[(1, 1),1],
+         'battleship':[(2, 2),1],
+         'cruiser':[(3, 3),1],
+         'submarine':[(4, 4),1],
+         'destroyer':[(5, 5),1]}
+
+battle = BattleShip(test)
