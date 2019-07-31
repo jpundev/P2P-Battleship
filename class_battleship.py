@@ -120,6 +120,7 @@ class BattleShip:
             self.OPPboard[pos[0]][pos[1]] = 'O'
         else:
             self.OPPboard[pos[0]][pos[1]] = 'X'
+        self.printBoard()
 
     # return 0 if no hit, return 1 for hit, return 2 for hit and sunk
     def checkAttack(self, pos):
@@ -128,11 +129,8 @@ class BattleShip:
                 i['hitmap'].remove(pos)
                 i['health'] -= 1
                 if i['health'] == 0:
-                    self.updateBoard(pos, 1)
                     return 2  # hit and sunk ship
-                self.updateBoard(pos, 1)
                 return 1  # hit ship
-        self.updateBoard(pos, 0)
         return 0  # no hit
 
     # if all ship is sunk, return True
