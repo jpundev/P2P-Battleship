@@ -23,6 +23,7 @@ class COM:
         self.rx.listen()
         c, addr = self.rx.accept()
         msg_b = c.recv(1024)
+
         msg = pickle.loads(msg_b)
         return msg
 
