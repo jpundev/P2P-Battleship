@@ -130,11 +130,12 @@ class BattleShip:
             self.guessBoard[pos[0]][pos[1]] = 'O'
             print("Oops, you missed!")
         else:
-            self.guessBoard[pos[0]][pos[1]] = 'X'
-            if status == 1:
-                print("Hooray!!! You hit something")
-            else:
-                print("You just sunk a ship! Flex tape can't fix that!")
+            if self.guessBoard[pos[0]][pos[1]] == '?':
+                self.guessBoard[pos[0]][pos[1]] = 'X'
+                if status == 1:
+                    print("Hooray!!! You hit something")
+                else:
+                    print("You just sunk a ship! Flex tape can't fix that!")
         self.printGuessBoard()
 
     # return 0 if no hit, return 1 for hit, return 2 for hit and sunk
@@ -144,8 +145,11 @@ class BattleShip:
                 i['hitmap'].remove(pos)
                 i['health'] -= 1
                 if i['health'] == 0:
+                    print("Oh no! The enemy has sunk one of your ship!")
                     return 2  # hit and sunk ship
+                print("Damn it! We've been hit!")
                 return 1  # hit ship
+        print("The enemy missed! We Won't make the same mistake.")
         return 0  # no hit
 
     # if all ship is sunk, return True
