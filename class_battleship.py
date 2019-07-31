@@ -50,25 +50,32 @@ class BattleShip:
                 for j in range(i['health']):
                     pos_temp[0] += 1
                     i['hitmap'].append(tuple(pos_temp))
-                    if not self.placementOverlap(tuple(pos_temp)) and
+                    if not self.placementOverlap(tuple(pos_temp)) and self.goodPosIndex(tuple(pos_temp)):
+                        self.globleHitMap.append(pos_temp)
             elif i['ori'] == 1:
                 for j in range(i['health']):
                     pos_temp[1] -= 1
                     i['hitmap'].append(tuple(pos_temp))
+                    if not self.placementOverlap(tuple(pos_temp)) and self.goodPosIndex(tuple(pos_temp)):
+                        self.globleHitMap.append(pos_temp)
             elif i['ori'] == 2:
                 for j in range(i['health']):
                     pos_temp[0] -= 1
                     i['hitmap'].append(tuple(pos_temp))
+                    if not self.placementOverlap(tuple(pos_temp)) and self.goodPosIndex(tuple(pos_temp)):
+                        self.globleHitMap.append(pos_temp)
             elif i['ori'] == 3:
                 for j in range(i['health']):
                     pos_temp[1] += 1
                     i['hitmap'].append(tuple(pos_temp))
+                    if not self.placementOverlap(tuple(pos_temp)) and self.goodPosIndex(tuple(pos_temp)):
+                        self.globleHitMap.append(pos_temp)
             else:
                 print("invalid orientation input")
                 exit(1)
 
     #return true if ship is placed outside of the board
-    def Index(self,pos):
+    def goodPosIndex(self,pos):
         if pos[0] >= 0 and pos[0] <= 7 and pos[1] >= 0 and pos[1] <= 7:
             return True
         return False
