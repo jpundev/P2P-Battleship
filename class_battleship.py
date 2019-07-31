@@ -132,7 +132,7 @@ class BattleShip:
                     return 2  # hit and sunk ship
                 self.updateBoard(pos, 1)
                 return 1  # hit ship
-        self.updateBoard(pos, 1)
+        self.updateBoard(pos, 0)
         return 0  # no hit
 
     # if all ship is sunk, return True
