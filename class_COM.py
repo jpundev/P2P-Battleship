@@ -21,7 +21,10 @@ class COM:
 
     def recieve(self):
         self.rx.listen()
+        print("Listen accepted")
+
         c, addr = self.rx.accept()
+        print(" socket accepted")
         msg_b = c.recv(1024)
 
         msg = pickle.loads(msg_b)
