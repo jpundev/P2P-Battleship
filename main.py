@@ -77,11 +77,16 @@ def attacksocket(board,sockets):
     #get user coord attack in form (x y) and set turn to false to indicate not my turn
     attack = input("Your Turn! Make an attack x y 0-7 \n")
     attackarray = attack.split(" ")
-    print(tuple((int(attackarray[0]),int(attackarray[1]))))
     sockets.send(tuple((int(attackarray[0]),int(attackarray[1]))))
     board.turn = False
-    print(sockets.recieve())
-    board.updateBoard()
+    recievemsg = sockets.recieve()
+    if recievemsg == "Hit!\n":
+        board.updateBoard(tuple((int(attackarray[0]),int(attackarray[1]))),1)
+    if recievemsg == "Hit and Sunk!\n":
+        board.updateBoard(tuple((int(attackarray[0]),int(attackarray[1]))),2)
+    if recievemsg == "Miss!\n":
+        board.updateBoard(tuple((int(attackarray[0]),int(attackarray[1]))),0)
+
 
 
 #Check if the attack hit and update the board
