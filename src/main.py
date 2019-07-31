@@ -78,8 +78,17 @@ def game(board, sockets):
 # Function to send an attack
 def attacksocket(board, sockets):
     # get user coord attack in form (x y) and set turn to false to indicate not my turn
-    attack = input("Your Turn! Make an attack x y 0-7 \n")
-    attackarray = attack.split(" ")
+    while True:
+        attack = input("Your Turn! Make an attack x y 0-7 \n")
+        attackarray = attack.split(" ")
+        x,y = int(attackarray[0]), int(attackarray[1])
+        if (0 <= x <= 7 or 0 <= y <= 7):
+            break
+        else:
+            print("Please Enter a Valid Coordinate")
+
+        
+    
     sockets.send(tuple((int(attackarray[0]), int(attackarray[1]))))
     board.turn = False
     recievemsg = sockets.recieve()
@@ -109,6 +118,7 @@ def initBoard():
     print(
         "Orientation is [ 0 : right, 1: down, 2: left, 3: right\n Coordinates must be entered from 0-7 like this (1,2)\n")
     # Get every battle ship orientation and position and put them into the dictionary
+    
     dictionary["carrier"] = parser(input("Enter a coordinate and orientation for the carrier (5) eg. 1 2 3 \n"))
     dictionary["battleship"] = parser(input("Enter a coordinate and orientation for the battleship (4) eg. 1 2 3 \n"))
     dictionary["submarine"] = parser(input("Enter a coordinate and orientation for the submarine (3) eg. 1 2 3 \n"))
@@ -141,9 +151,14 @@ def sendvalue(value, sockets):
 def parser(string):
     stringarray = string.split(" ")
     print(stringarray)
-    coordarray = [int(stringarray[0]), int(stringarray[1])]
-    print([tuple(coordarray), int(stringarray[2])])
-    return [tuple(coordarray), int(stringarray[2])]
+    x,y = int(stringarray[0]), int(stringarray[1])
+    while True:
+        if (0 <= x <= 7 or 0 <= y <= 7):
+            coordarray = [x, y]
+            print([tuple(coordarray), int(stringarray[2])])
+            return [tuple(coordarray), int(stringarray[2])]
+        else:
+            print("Please Enter a Valid Coordinate")
 
 
 if __name__ == '__main__':
