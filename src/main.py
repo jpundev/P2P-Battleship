@@ -12,8 +12,13 @@ def main():
     host = input("Are you the Host? (y/n) \n")
     # Initialize Sockets and board
     sockets = COM(OPPip, txport, rxport)
-    boarddict = initBoard()
-    board = BattleShip(boarddict)
+    while True:
+        try:
+            boarddict = initBoard()
+            board = BattleShip(boarddict)
+            break
+        except:
+            pass
     # Identify if the player is host from the userinput
     if (host == "y"):
         print("Waiting for Player 2 to Connect..\n")
