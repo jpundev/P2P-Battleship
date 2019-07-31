@@ -1,6 +1,6 @@
 # P2P-Battleship
 
 #### PLAY
-    python setup.py
-    python main.py
+    cd ~/P2P-Battleship/src/
+    python Battleship.py
     
