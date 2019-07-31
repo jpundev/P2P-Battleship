@@ -19,8 +19,10 @@ def main():
             boarddict = initBoard()
             board = BattleShip(boarddict)
             break
-        except:
-            pass
+        except KeyboardInterrupt:
+            print("Interrupted")
+            exit(1)
+          
     # Identify if the player is host from the userinput
     if (host == "y"):
         print("Waiting for Player 2 to Connect..\n")
