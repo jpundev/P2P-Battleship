@@ -77,6 +77,7 @@ def game(board, sockets):
         # Not players turn
         else:
             recieveAttack(board, sockets)
+    sockets.stop()
     return
 
 
