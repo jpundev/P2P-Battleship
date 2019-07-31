@@ -1,6 +1,6 @@
 # P2P-Battleship 
 ![alt text](https://raw.githubusercontent.com/punjordi/P2P-Battleship/master/asset/banner.jpg)
-##### Jordi Pun and Kerry Cao
+##### Jordi Pun and Yuqian Cao
 This is a project demonstrating the usage of sockets and IPC's with the classic game Battleship. This game features no GUI and will be played in the CMD line locally over the same network.
 
 ### HOW TO PLAY
