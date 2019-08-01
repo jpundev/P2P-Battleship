@@ -1,5 +1,7 @@
-import numpy as np
 from os import system as sys
+
+import numpy as np
+
 
 # getting all the placement for class_battleship
 # handles and sanitize user input
@@ -36,7 +38,7 @@ class Setup:
                 self.placement = {}
 
         # return placement
-        return self.exit()
+        return self.placement
 
     def createBoard(self):
         temp = []
@@ -60,7 +62,7 @@ class Setup:
         pos_row = pos_t[0]
         pos_col = pos_t[1]
 
-        for i in range(shipHeath[shipNum]-1):
+        for i in range(shipHeath[shipNum] - 1):
             if ori == 0:
                 pos_col += 1
                 self.myBoard[pos_row][pos_col] = shipHeath[shipNum]
@@ -87,7 +89,7 @@ class Setup:
         ships = ['carrier', 'battleship', 'submarine', 'cruiser', 'destroyer']
 
         while not gotValidInput:
-            #clear screen
+            # clear screen
             sys("clear")
 
             # draw out the board
@@ -121,11 +123,3 @@ class Setup:
         rowLetter = string[0]
         rowNum = rowIndex[rowLetter]
         return tuple([rowNum, int(string[1])])
-
-    def exit(self):
-        return self.placement
-
-# test code
-a = Setup()
-a.main()
-
