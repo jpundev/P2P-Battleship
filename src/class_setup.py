@@ -6,27 +6,43 @@ from os import system as sys
 class Setup:
     def __init__(self):
         # board to display
-        self.guessBoard = None
+        self.myBoard = None
 
         # to be returned at the end as initINFO for class_battleship
         self.placement = {}
 
     def main(self):
-        sys("clear")
+        # finished getting input
+        done = False
 
-        self.createBoard()
+        while not done:
+            # clear screen
+            sys("clear")
 
-        for i in range(5):
-            self.getInput(i)
+            # create empty board
+            self.createBoard()
 
-        self.exit()
+            # get input
+            for i in range(5):
+                self.getInput(i)
 
+            sys("clear")
+            self.drawBoard()
+            confirm = input("This is your board, do you with to continue? [Y/n]: ")
+            if confirm.upper() == 'Y':
+                done = True
+            else:
+                # reset placement
+                self.placement = {}
+
+        # return placement
+        return self.exit()
 
     def createBoard(self):
         temp = []
         for i in range(64):
             temp.append('?')
-        self.guessBoard = np.reshape(np.array(temp), (-1, 8))
+        self.myBoard = np.reshape(np.array(temp), (-1, 8))
 
     def drawBoard(self):
         print("   0 1 2 3 4 5 6 7 ")
@@ -34,14 +50,31 @@ class Setup:
         for i in range(8):
             line = rowIndex[i] + " |"
             for j in range(8):
-                line += self.guessBoard[i][j]
+                line += self.myBoard[i][j]
                 line += "|"
             print(line)
 
-    def updatedBoard(self, pos, ori):
-        pass
+    def updatedBoard(self, pos_t, ori, shipNum):
+        shipHeath = [5, 4, 3, 3, 2]
+        self.myBoard[pos_t[0]][pos_t[1]] = shipHeath[shipNum]
+        pos_row = pos_t[0]
+        pos_col = pos_t[1]
 
-    # ship num range from 0 - 4, 0 being the carrier, 4 being the destoryer
+        for i in range(shipHeath[shipNum]-1):
+            if ori == 0:
+                pos_col += 1
+                self.myBoard[pos_row][pos_col] = shipHeath[shipNum]
+            elif ori == 1:
+                pos_row += 1
+                self.myBoard[pos_row][pos_col] = shipHeath[shipNum]
+            elif ori == 2:
+                pos_col -= 1
+                self.myBoard[pos_row][pos_col] = shipHeath[shipNum]
+            elif ori == 3:
+                pos_row -= 1
+                self.myBoard[pos_row][pos_col] = shipHeath[shipNum]
+
+    # ship num range from 0 - 4, 0 being the carrier, 4 being the destroyer
     def getInput(self, shipNum):
         gotValidInput = False
 
@@ -54,6 +87,9 @@ class Setup:
         ships = ['carrier', 'battleship', 'submarine', 'cruiser', 'destroyer']
 
         while not gotValidInput:
+            #clear screen
+            sys("clear")
+
             # draw out the board
             self.drawBoard()
 
@@ -64,32 +100,32 @@ class Setup:
             ori = int(placement[1])
 
             # validating input
-            if len(pos) == 2: # validating pos
+            if len(pos) == 2:  # validating pos
                 rowIndex = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
                 if pos[0] in rowIndex and 0 <= int(pos[1]) <= 7:
                     if 0 <= ori <= 3:  # validating ori
                         gotValidInput = True
 
             # break if input is not valid
-            if gotValidInput == False:
+            if not gotValidInput:
                 print("Invalid Input, Please try again!")
-                break;
-            else: # updated self.placement and self.gussBoard if inputs are valid
-                pos_t = self.TranslateCoordinate(pos)  # position as a int a tuple
+                break
+            else:  # updated self.placement and self.gussBoard if inputs are valid
+                pos_t = self.translateCoordinate(pos)  # position as a int a tuple
                 self.placement[ships[shipNum]] = [pos_t, ori]
+                self.updatedBoard(pos_t, ori, shipNum)
 
-
-
-    def TranslateCoordinate(self, string):
+    @staticmethod
+    def translateCoordinate(string):
         rowIndex = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7}
         rowLetter = string[0]
         rowNum = rowIndex[rowLetter]
         return tuple([rowNum, int(string[1])])
 
     def exit(self):
-        print(self.placement)
         return self.placement
 
+# test code
 a = Setup()
 a.main()
 
