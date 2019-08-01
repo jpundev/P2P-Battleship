@@ -60,23 +60,23 @@ class Setup:
 
     def updatedBoard(self, pos_t, ori, shipNum):
         shipHeath = [5, 4, 3, 3, 2]
-        self.myBoard[pos_t[0]][pos_t[1]] = shipHeath[shipNum]
+        self.myBoard[pos_t[0]][pos_t[1]] = "\u25C9"
         pos_row = pos_t[0]
         pos_col = pos_t[1]
 
         for i in range(shipHeath[shipNum] - 1):
             if ori == 0:
                 pos_col += 1
-                self.myBoard[pos_row][pos_col] = shipHeath[shipNum]
+                self.myBoard[pos_row][pos_col] = "\u25C9"
             elif ori == 1:
                 pos_row += 1
-                self.myBoard[pos_row][pos_col] = shipHeath[shipNum]
+                self.myBoard[pos_row][pos_col] = "\u25C9"
             elif ori == 2:
                 pos_col -= 1
-                self.myBoard[pos_row][pos_col] = shipHeath[shipNum]
+                self.myBoard[pos_row][pos_col] = "\u25C9"
             elif ori == 3:
                 pos_row -= 1
-                self.myBoard[pos_row][pos_col] = shipHeath[shipNum]
+                self.myBoard[pos_row][pos_col] = "\u25C9"
 
     # ship num range from 0 - 4, 0 being the carrier, 4 being the destroyer
     def getInput(self, shipNum):
