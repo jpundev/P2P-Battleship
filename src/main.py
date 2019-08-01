@@ -4,6 +4,7 @@ import platform
 import numpy as np
 from class_COM import COM
 from class_battleship import BattleShip
+from class_setup import Setup
 
 def main():
     # Gether Inputs for Socket usage and connection
@@ -119,35 +120,9 @@ def recieveAttack(board, sockets):
 
 # initialize the board to send to the board class
 def initBoard():
-    # Initialize the dictionary with empty positions
-    dictionary = {"battleship": None, "carrier": None, "submarine": None, "cruiser": None, "destroyer": None}
-
-    sys("clear")
-
-    temp = []
-    for i in range(64):
-        temp.append('?')
-    guessBoard = np.reshape(np.array(temp), (-1, 8))
-    print("   0 1 2 3 4 5 6 7 ")
-    rowIndex = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-    for i in range(8):
-        line = rowIndex[i] + " |"
-        for j in range(8):
-            line += guessBoard[i][j]
-            line += "|"
-        print(line)
-
-    print("Orientation is [ 0 : right, 1: down, 2: left, 3: right\n Coordinates must be entered beginning"
-          " with a letter and then a number \n")
-
-    # Get every battle ship orientation and position and put them into the dictionary
-    dictionary["carrier"] = parser(input("Enter a coordinate and orientation for the carrier (5) eg. A1 3 \n"))
-    dictionary["battleship"] = parser(input("Enter a coordinate and orientation for the battleship (4) eg. A1 3 \n"))
-    dictionary["submarine"] = parser(input("Enter a coordinate and orientation for the submarine (3) eg. A1 3 \n"))
-    dictionary["cruiser"] = parser(input("Enter a coordinate and orientation for the cruiser (3) eg. A1 3 \n"))
-    dictionary["destroyer"] = parser(input("Enter a coordinate and orientation for the destroyer (2) eg. A1 3 \n"))
-
-    return dictionary
+    # calls upon class_setup to get user input and generates a dictionary for class_battleship
+    setup = Setup()
+    return setup.main()
 
 
 # Function that prints out status of the missile that you sent
@@ -168,26 +143,11 @@ def sendvalue(value, sockets):
     if value == 2:
         sockets.send("Hit and Sunk!")
 
-
-# helper function to parse the user input for the correct output for our battleship class
-def parser(string):
-    stringarray = string.split(" ")
-    print(stringarray)
-    tp = TranslateCoordinate(stringarray[0])
-    x, y = tp[0], tp[1]
-    while True:
-        if (0 <= x <= 7 or 0 <= y <= 7):
-            return [tp, int(stringarray[1])]
-        else:
-            print("Please Enter a Valid Coordinate")
-
-
-def TranslateCoordinate(string):
+def translateCoordinate(string):
     rowIndex = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7}
     rowLetter = string[0]
     rowNum = rowIndex[rowLetter]
     return tuple([rowNum, int(string[1])])
-
 
 if __name__ == '__main__':
     if platform.system() == 'Windows':
