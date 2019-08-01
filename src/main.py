@@ -1,14 +1,13 @@
 import random
 from os import system as sys
-
+import platform
 import numpy as np
-
 from class_COM import COM
 from class_battleship import BattleShip
 
-
 def main():
     # Gether Inputs for Socket usage and connection
+    sys("clear")
     input("Welcome To Our BattleShip Game, Press Any Button to Continue...\n")
     OPPip = input("Enter Your opponents IP..\n")
     txport = input("Enter Transmitting port..\n")
@@ -191,5 +190,7 @@ def TranslateCoordinate(string):
 
 
 if __name__ == '__main__':
+    if platform.system() == 'Windows':
+        print("Oops, looks like you are using WINDOWS!")
+        print("This program will not work with CMD, run it in Powershell!")
     main()
-    pass
