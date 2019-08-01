@@ -28,6 +28,8 @@ class Setup:
             for i in range(5):
                 self.getInput(i)
 
+            # print out final board and get confirmation, if confirmed, exit and return placement
+            # reset board and placement if user do not confirm, restart the get user input process
             sys("clear")
             self.drawBoard()
             confirm = input("This is your board, do you with to continue? [Y/n]: ")
