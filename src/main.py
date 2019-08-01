@@ -6,6 +6,7 @@ from class_COM import COM
 from class_battleship import BattleShip
 from class_setup import Setup
 
+
 def main():
     # Gether Inputs for Socket usage and connection
     sys("clear")
@@ -143,14 +144,17 @@ def sendvalue(value, sockets):
     if value == 2:
         sockets.send("Hit and Sunk!")
 
-def translateCoordinate(string):
+
+def TranslateCoordinate(string):
     rowIndex = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7}
     rowLetter = string[0]
     rowNum = rowIndex[rowLetter]
     return tuple([rowNum, int(string[1])])
 
+
 if __name__ == '__main__':
     if platform.system() == 'Windows':
-        print("Oops, looks like you are using WINDOWS!")
-        print("This program will not work with CMD, run it in Powershell!")
-    main()
+        print("Oops, looks like you are using WINDOWS. This program only runs on MacOs and Linux")
+        exit(1)
+    else:
+        main()
