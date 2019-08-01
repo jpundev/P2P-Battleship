@@ -127,11 +127,11 @@ class BattleShip:
     def updateBoard(self, pos, status):
         sys("Clear")
         if status == 0:
-            self.guessBoard[pos[0]][pos[1]] = 'O'
+            self.guessBoard[pos[0]][pos[1]] = '\u25C7'
             print("Oops, you missed!")
         else:
             if self.guessBoard[pos[0]][pos[1]] == '?':
-                self.guessBoard[pos[0]][pos[1]] = 'X'
+                self.guessBoard[pos[0]][pos[1]] = '\u25C8'
                 if status == 1:
                     print("Hooray!!! You hit something")
                 else:
