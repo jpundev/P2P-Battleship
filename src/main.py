@@ -111,6 +111,11 @@ def attacksocket(board, sockets):
         board.updateBoard(tp, 2)
     if recievemsg == "Miss!":
         board.updateBoard(tp, 0)
+    if recievemsg == "Lost":  # won the game, print message and stop game
+        sys("clear")
+        print("You've Won")
+        sockets.stop()
+        exit(0)
 
 
 # Check if the attack hit and update the board
@@ -145,6 +150,8 @@ def sendvalue(value, sockets):
         sockets.send("Hit!")
     if value == 2:
         sockets.send("Hit and Sunk!")
+    if value == 3:
+        sockets.send("Lost")
 
 
 def TranslateCoordinate(string):

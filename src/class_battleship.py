@@ -145,6 +145,8 @@ class BattleShip:
                 i['hitmap'].remove(pos)
                 i['health'] -= 1
                 if i['health'] == 0:
+                    if self.defeated():
+                        return 3  # lost the game
                     print("Oh no! The enemy has sunk one of your ship!")
                     return 2  # hit and sunk ship
                 print("Damn it! We've been hit!")
