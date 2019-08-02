@@ -123,7 +123,7 @@ class BattleShip:
     # update the board according to status and pos
     # clear window, print message according to status, print board
     # pos is a tuple (row num, col num) and status may equal to 0(miss), 1(hit)
-    # 'X' means a hit 'O' means a miss
+    # '◈' means a hit '◇' means a miss
     def updateBoard(self, pos, status):
         sys("Clear")
         if status == 0:

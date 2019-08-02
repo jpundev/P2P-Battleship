@@ -1,7 +1,7 @@
+import platform
 import random
 from os import system as sys
-import platform
-import numpy as np
+
 from class_COM import COM
 from class_battleship import BattleShip
 from class_setup import Setup

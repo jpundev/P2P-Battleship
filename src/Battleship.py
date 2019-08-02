@@ -11,4 +11,3 @@ except ImportError:
     os.system("pip install netifaces")
 
 os.system("python main.py")
-
