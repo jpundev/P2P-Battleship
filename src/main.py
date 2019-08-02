@@ -84,8 +84,10 @@ def game(board, sockets):
         # Not players turn
         else:
             recieveAttack(board, sockets)
+
+    sys("clear")
+    print("You've lost!")
     sockets.stop()
-    return
 
 
 # Function to send an attack
