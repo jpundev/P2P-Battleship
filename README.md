@@ -12,7 +12,7 @@ For example 192.168.1.1 Transmit 8001 Recieve 8000
 
 The Users will then be required the enter their ship placements and their orientation represented by 0 1 2 3 for right down left up respectively. Coordinates/placement are entered in traditional fashion with Letter followed by a number (A1)
 
-Upon successful conenction players will then take turns firing onto their opponenets board by entering the coordinates. A board will update with a message indicating if they hit a ship or not. 
+Upon successful connection players will then take turns firing onto their opponenets board by entering the coordinates. A board will update with a message indicating if they hit a ship or not. 
 
 The game ends when all of a player's ships has sunk or if the player closes the socket.
 
