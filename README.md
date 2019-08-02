@@ -7,7 +7,9 @@ This is a project demonstrating the usage of sockets and IPC's with the classic 
 To start the program run python Battleship.py. This will install all the neccasary dependencies required to play the game. 
 You will then be required to enter the opponents Local IP address as well as the the two ports required for the processes to communicate with. 
 
-For example 192.168.1.1 Transmit 8001 Recieve 8000
+For example 
+
+            192.168.1.1 Transmit 8001 Recieve 8000
             192.168.1.2 Transmit 8000 Recieve 8001
 
 The Users will then be required the enter their ship placements and their orientation represented by 0 1 2 3 for right down left up respectively. Coordinates/placement are entered in traditional fashion with Letter followed by a number (A1)
@@ -23,4 +25,6 @@ The game ends when all of a player's ships has sunk or if the player closes the 
     netifaces is used to determine the IP of the player to bind to a socket
     numpy is used to initialize the array and for array manipulations
     
-    
+### Windows Users
+Unfortunatly, this game will not work the Windows environment.
+Please run this game in WSL or in a VM.
